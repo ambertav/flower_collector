@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 
 from .models import Flower
@@ -12,6 +12,10 @@ def home(request):
 class FlowerList (ListView) :
     model = Flower
     template_name = 'flowers/flower_list.html'
+
+class FlowerDetail (DetailView) :
+    model = Flower
+    template_name = 'flowers/flower_detail.html'
 
 class FlowerCreate (CreateView) :
     model = Flower
