@@ -1,7 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    {% if object %}
+        <title>Update {{ object.name }}</title>
+    {% else %}
+        <title>Add a Flower</title>
+    {% endif %}
+{% endblock %}
+
 
 {% block content %}
+    {% if object %}
+        <h1>Update {{ object.name }}</h1>
+    {% else %}
+        <h1>Create a Flower</h1>
+{% endif %}
 
     <form method="POST">
         {% csrf_token %}

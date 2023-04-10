@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Flower
 
@@ -18,6 +18,11 @@ class FlowerDetail (DetailView) :
     template_name = 'flowers/flower_detail.html'
 
 class FlowerCreate (CreateView) :
+    model = Flower
+    fields = '__all__'
+    template_name = 'flowers/flower_form.html'
+
+class FlowerUpdate (UpdateView) :
     model = Flower
     fields = '__all__'
     template_name = 'flowers/flower_form.html'

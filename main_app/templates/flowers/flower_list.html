@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<h1>Hello</h1>
-
 {% for flower in object_list %}
 
     <a href="{% url 'flower_detail' flower.id %}">
@@ -13,7 +11,7 @@
             <p>Life Cycle Stage: {{ flower.stage }}</p>
         </div>
     </a>
-    
+
 {% endfor %}
 
 {% endblock %}
