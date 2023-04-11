@@ -5,8 +5,10 @@
         <div>
             <h3>name: {{ flower.name.capitalize }}</h3>
             <p>{{ flower.color.capitalize }}</p>
+            <p>{{ flower.description }}</p>
             <p>Life Cycle Stage: {{ flower.stage }}</p>
             <a href="{% url 'flower_update' flower.id %}">Update</a>
+            <a href="{% url 'flower_delete' flower.id %}">Delete</a>
         </div>
 
 
