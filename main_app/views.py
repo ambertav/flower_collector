@@ -19,12 +19,16 @@ class FlowerDetail (DetailView) :
 
 class FlowerCreate (CreateView) :
     model = Flower
-    fields = '__all__'
+    fields = ('name', 'color', 'description', 'stage')
     template_name = 'flowers/flower_form.html'
+
+    def form_valid (self, form) :
+       form.instance.user = self.request.user
+       return super().form_valid(form)
 
 class FlowerUpdate (UpdateView) :
     model = Flower
-    fields = '__all__'
+    fields = ('name', 'color', 'description', 'stage')
     template_name = 'flowers/flower_form.html'
 
 class FlowerDelete (DeleteView) :
