@@ -2,16 +2,23 @@
 
 {% block content %}
 
-{% for flower in object_list %}
-
-    <a href="{% url 'flower_detail' flower.id %}">
-        <div>
-            <h3>name: {{ flower.name.capitalize }}</h3>
-            <p>{{ flower.color.capitalize }}</p>
-            <p>Life Cycle Stage: {{ flower.stage }}</p>
+<div class="container is-max-desktop">
+    {% for flower in object_list %}
+    
+        <div class="card mb-5 p-0">
+            <div class="card-content">
+                <a href="{% url 'flower_detail' flower.id %}">
+                    <p class="card-header-title p-0">{{ flower.name.capitalize }}</p>
+                    <div class="ml-4">
+                        <p>{{ flower.color.capitalize }}</p>
+                        <p>{{ flower.description.capitalize }}</p>
+                        <p>Life Cycle Stage: {{ flower.stage.get_stage_display }}</p>
+                    </div>
+                </a>
+            </div>
         </div>
-    </a>
-
-{% endfor %}
+    
+    {% endfor %}
+</div>
 
 {% endblock %}
