@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, ModelFormMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Flower
+from .forms import WateringForm
 
 # Create your views here.
 
@@ -27,6 +28,13 @@ def signup (request) :
         'form': form
     })
 
+def add_watering (request, flower_id) :
+    form = WateringForm(request.POST)
+    if form.is_valid () :
+        new_watering = form.save(commit=False)
+        new_watering.flower_id = flower_id
+        new_watering.save()
+    return redirect('flower_detail', pk=flower_id)
 
 class FlowerList (LoginRequiredMixin, ListView) :
     template_name = 'flowers/flower_list.html'
@@ -34,11 +42,18 @@ class FlowerList (LoginRequiredMixin, ListView) :
     def get_queryset (self) :
         return Flower.objects.filter(user=self.request.user)
 
-class FlowerDetail (LoginRequiredMixin, DetailView) :
+class FlowerDetail (LoginRequiredMixin, ModelFormMixin, DetailView) :
     template_name = 'flowers/flower_detail.html'
+    form_class = WateringForm
 
     def get_queryset (self) :
         return Flower.objects.filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super(FlowerDetail, self).get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
+
 
 class FlowerCreate (LoginRequiredMixin, CreateView) :
     model = Flower
