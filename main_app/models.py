@@ -25,3 +25,16 @@ class Flower (models.Model) :
     
     def get_absolute_url (self) :
         return reverse('flower_detail', kwargs = {'pk': self.id})
+    
+
+class Watering (models.Model) :
+    date = models.DateField()
+    inches = models.IntegerField(default=1)
+
+    flower = models.ForeignKey(Flower, on_delete=models.CASCADE)
+
+    def __str__ (self) :
+        return f'{self.date}: {self.inches} of water'
+    
+    class Meta :
+        ordering = '-date',
