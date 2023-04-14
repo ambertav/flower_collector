@@ -5,11 +5,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Flower
+from .models import Flower, Pollinator
 from .forms import WateringForm
 
 # Create your views here.
 
+# view functions
 def home (request) :
     return render(request, 'home.html')
 
@@ -36,6 +37,8 @@ def add_watering (request, flower_id) :
         new_watering.save()
     return redirect('flower_detail', pk=flower_id)
 
+
+# CBV for Flower
 class FlowerList (LoginRequiredMixin, ListView) :
     template_name = 'flowers/flower_list.html'
 
@@ -53,7 +56,6 @@ class FlowerDetail (LoginRequiredMixin, ModelFormMixin, DetailView) :
         context = super(FlowerDetail, self).get_context_data(**kwargs)
         context['form'] = self.get_form()
         return context
-
 
 class FlowerCreate (LoginRequiredMixin, CreateView) :
     model = Flower
@@ -77,3 +79,11 @@ class FlowerDelete (LoginRequiredMixin, DeleteView) :
 
     def get_queryset (self) :
         return Flower.objects.filter(user=self.request.user)
+    
+
+# CBV for Pollinator
+class PollinatorList (LoginRequiredMixin, ListView) :
+    template_name = 'pollinators/pollinator_list.html'
+
+    def get_queryset (self) :
+        return Pollinator.objects.filter(user=self.request.user)

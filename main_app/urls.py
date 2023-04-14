@@ -11,4 +11,6 @@ urlpatterns = [
     path('flowers/<int:flower_id>/add_watering', views.add_watering, name='add_watering'),
 
     path('accounts/signup/', views.signup, name='signup'),
+
+    path('pollinators/', views.PollinatorList.as_view(), name='pollinator_list'),
 ]
