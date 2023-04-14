@@ -13,4 +13,5 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
 
     path('pollinators/', views.PollinatorList.as_view(), name='pollinator_list'),
+    path('pollinators/create', views.PollinatorCreate.as_view(), name='pollinator_create'),
 ]
