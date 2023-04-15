@@ -109,3 +109,10 @@ class PollinatorUpdate (LoginRequiredMixin, UpdateView) :
 
     def get_queryset (self) :
         return Pollinator.objects.filter(user=self.request.user)
+
+class PollinatorDelete (LoginRequiredMixin, DeleteView) :
+    success_url = '/pollinators/'
+    template_name = 'pollinators/pollinator_confirm_delete.html'
+
+    def get_queryset (self) :
+        return Pollinator.objects.filter(user=self.request.user)

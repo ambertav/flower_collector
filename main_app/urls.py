@@ -16,4 +16,5 @@ urlpatterns = [
     path('pollinators/<int:pk>/', views.PollinatorDetail.as_view(), name='pollinator_detail'),
     path('pollinators/create/', views.PollinatorCreate.as_view(), name='pollinator_create'),
     path('pollinators/<int:pk>/update/', views.PollinatorUpdate.as_view(), name='pollinator_update'),
+    path('pollinators/<int:pk>/delete/', views.PollinatorDelete.as_view(), name='pollinator_delete'),
 ]
