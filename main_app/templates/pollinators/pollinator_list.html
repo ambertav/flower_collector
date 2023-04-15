@@ -9,13 +9,15 @@
     <div class="container is-max-desktop">
         {% for pollinator in object_list %}
             <div class="card mb-5 p-0">
-                <div class="card-content">
-                    <p class="card-header-title p-0">{{ pollinator.name.capitalize }}</p>
-                    <div class="ml-4">
-                        <p>{{ pollinator.description.capitalize }}</p>
+                <a href="{% url 'pollinator_detail' pollinator.id %}">
+                    <div class="card-content">
+                        <p class="card-header-title p-0">{{ pollinator.name.capitalize }}</p>
+                        <div class="ml-4">
+                            <p>{{ pollinator.description.capitalize }}</p>
+                        </div>
                     </div>
+                </a>
             </div>
-        </div>
     {% endfor %}
     </div>
 

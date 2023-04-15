@@ -87,6 +87,12 @@ class PollinatorList (LoginRequiredMixin, ListView) :
 
     def get_queryset (self) :
         return Pollinator.objects.filter(user=self.request.user)
+
+class PollinatorDetail (LoginRequiredMixin, DetailView) :
+    template_name = 'pollinators/pollinator_detail.html'
+
+    def get_queryset (self) :
+        return Pollinator.objects.filter(user=self.request.user)
     
 class PollinatorCreate (LoginRequiredMixin, CreateView) :
     model = Pollinator

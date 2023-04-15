@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Pollinators</title>
+{% endblock %}
+
+
+{% block content %}
+<div>
+    <h3>name: {{ pollinator.name.capitalize }}</h3>
+    <p>{{ pollinator.description }}</p>
+</div>
+{% endblock %}
