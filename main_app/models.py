@@ -48,6 +48,9 @@ class Pollinator (models.Model) :
     def __str__ (self) :
         return self.name
     
+    def get_absolute_url (self) :
+        return reverse('pollinator_detail', kwargs = {'pk': self.id})
+    
 
 class Watering (models.Model) :
     date = models.DateField()

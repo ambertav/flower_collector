@@ -102,3 +102,10 @@ class PollinatorCreate (LoginRequiredMixin, CreateView) :
     def form_valid (self, form) :
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+class PollinatorUpdate (LoginRequiredMixin, UpdateView) :
+    fields = ('name', 'description', 'type')
+    template_name = 'pollinators/pollinator_form.html'
+
+    def get_queryset (self) :
+        return Pollinator.objects.filter(user=self.request.user)

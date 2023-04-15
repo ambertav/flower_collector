@@ -9,5 +9,6 @@
 <div>
     <h3>name: {{ pollinator.name.capitalize }}</h3>
     <p>{{ pollinator.description }}</p>
+    <a href="{% url 'pollinator_update' pollinator.id %}">Update</a>
 </div>
 {% endblock %}

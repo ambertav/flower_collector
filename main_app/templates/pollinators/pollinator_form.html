@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    <title>Create a Pollinator</title>
+    {% if object %}
+        <title>Update {{ object.name }}</title>
+    {% else %}
+        <title>Add a Pollinator</title>
+    {% endif %}
 {% endblock %}
 
+
 {% block content %}
+    {% if object %}
+        <h1>Update {{ object.name }}</h1>
+    {% else %}
+        <h1>Create a Pollinator</h1>
+    {% endif %}
+
     <div class="container">
         <form class="is-horizontal" method="POST">
             {% csrf_token %}
