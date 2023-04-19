@@ -6,10 +6,52 @@
 
 
 {% block content %}
-<div>
-    <h3>name: {{ pollinator.name.capitalize }}</h3>
-    <p>{{ pollinator.description }}</p>
-    <a href="{% url 'pollinator_update' pollinator.id %}">Update</a>
-    <a href="{% url 'pollinator_delete' pollinator.id %}">Delete</a>
-</div>
+    <div>
+        <h3>name: {{ pollinator.name.capitalize }}</h3>
+        <p>{{ pollinator.description }}</p>
+        <p>{{ pollinator.get_type_display }}</p>
+        <a href="{% url 'pollinator_update' pollinator.id %}">Update</a>
+        <a href="{% url 'pollinator_delete' pollinator.id %}">Delete</a>
+    </div>
+
+    <div>
+        <h3>Flower's Pollinated:</h3>
+        {% if pollinator.flowers.count %}
+            {% for flower in pollinator.flowers.all %}
+                <div>
+                    <a href="{% url 'flower_detail' flower.id %}">
+                        <p>{{ flower.name.capitalize }}</p>
+                    </a>
+                    <form action="{% url 'unassoc_flower' pollinator.id flower.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Remove">
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>{{ pollinator.name }} hasn't pollinated any flowers yet</p>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Available Flowers</h3>
+        {% if flowers.count %}
+            {% for flower in flowers %}
+                {% if flower.stage == 'P' %}
+                    <div>
+                        <a href="{% url 'flower_detail' flower.id %}">
+                            <p>{{ flower.name.capitalize }}</p>
+                        </a>
+                        <form action="{% url 'assoc_flower' pollinator.id flower.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Add">
+                        </form>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No available flowers to pollinate</p>
+            <a href="{% url 'flower_create' %}">Add more flowers</a>
+        {% endif %}
+    </div>
+
 {% endblock %}

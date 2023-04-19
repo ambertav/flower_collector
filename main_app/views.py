@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView, ModelF
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from .models import Flower, Pollinator
 from .forms import WateringForm
@@ -37,6 +38,17 @@ def add_watering (request, flower_id) :
         new_watering.save()
     return redirect('flower_detail', pk=flower_id)
 
+def assoc_flower (request, pollinator_id, flower_id) :
+    if Flower.objects.get(id=flower_id).stage == 'P' :
+        pollinator = Pollinator.objects.get(id=pollinator_id)
+        pollinator.flowers.add(flower_id)
+        return redirect('pollinator_detail', pollinator_id=pollinator_id)
+
+
+def unassoc_flower (request, pollinator_id, flower_id) :
+    pollinator = Pollinator.objects.get(id=pollinator_id)
+    pollinator.flowers.remove(flower_id)
+    return redirect('pollinator_detail', pollinator_id=pollinator_id)
 
 # CBV for Flower
 class FlowerList (LoginRequiredMixin, ListView) :
@@ -88,11 +100,27 @@ class PollinatorList (LoginRequiredMixin, ListView) :
     def get_queryset (self) :
         return Pollinator.objects.filter(user=self.request.user)
 
-class PollinatorDetail (LoginRequiredMixin, DetailView) :
-    template_name = 'pollinators/pollinator_detail.html'
+# class PollinatorDetail (LoginRequiredMixin, DetailView) :
+#     template_name = 'pollinators/pollinator_detail.html'
 
-    def get_queryset (self) :
-        return Pollinator.objects.filter(user=self.request.user)
+#     def get_queryset (self) :
+#         return Pollinator.objects.filter(user=self.request.user)
+    
+#     def get_context_data(self, **kwargs):
+#         context = super(PollinatorDetail, self).get_context_data(**kwargs)
+#         context['flowers'] = Flower.objects.all()
+#         return context
+
+@login_required
+def pollinator_detail (request, pollinator_id) :
+    pollinator = Pollinator.objects.get(id=pollinator_id)
+    pollinated_flower_ids = pollinator.flowers.all().values_list('id')
+    available_flowers = Flower.objects.exclude(id__in=pollinated_flower_ids)
+
+    return render(request, 'pollinators/pollinator_detail.html', {
+        'pollinator': pollinator,
+        'flowers': available_flowers
+    })
     
 class PollinatorCreate (LoginRequiredMixin, CreateView) :
     model = Pollinator

@@ -13,8 +13,10 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
 
     path('pollinators/', views.PollinatorList.as_view(), name='pollinator_list'),
-    path('pollinators/<int:pk>/', views.PollinatorDetail.as_view(), name='pollinator_detail'),
+    path('pollinators/<int:pollinator_id>/', views.pollinator_detail, name='pollinator_detail'),
     path('pollinators/create/', views.PollinatorCreate.as_view(), name='pollinator_create'),
     path('pollinators/<int:pk>/update/', views.PollinatorUpdate.as_view(), name='pollinator_update'),
     path('pollinators/<int:pk>/delete/', views.PollinatorDelete.as_view(), name='pollinator_delete'),
+    path('pollinators/<int:pollinator_id>/assoc_flower/<int:flower_id>/', views.assoc_flower, name='assoc_flower'),
+    path('pollinators/<int:pollinator_id>/unassoc_flower/<int:flower_id>/', views.unassoc_flower, name='unassoc_flower'),
 ]
