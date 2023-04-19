@@ -3,15 +3,18 @@
 {% block content %}
 
         <div>
-            <h3>name: {{ flower.name.capitalize }}</h3>
+            <h3>{{ flower.name.capitalize }}</h3>
             <p>{{ flower.color.capitalize }}</p>
             <p>{{ flower.description }}</p>
-            <p>Life Cycle Stage: {{ flower.stage }}</p>
+            <p>{{ flower.get_stage_display }} stage</p>
             <a href="{% url 'flower_update' flower.id %}">Update</a>
+            <br>
             <a href="{% url 'flower_delete' flower.id %}">Delete</a>
         </div>
-
+        <br>
+        <br>
         <div>
+            <h3>Watering Log</h3>
             <form action="{% url 'add_watering' flower.id %}" method="POST">
                 {% csrf_token %}
                 <table>

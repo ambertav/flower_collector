@@ -14,14 +14,17 @@
         <h1>Update {{ object.name }}</h1>
     {% else %}
         <h1>Create a Flower</h1>
-{% endif %}
+    {% endif %}
 
-    <form method="POST">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <form class="is-horizontal" method="POST">
+            {% csrf_token %}
+            <table class="mb-4">
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit" class="button is-success is-outlined is-rounded column is-offset-9 mb-4">
+        </form>
+    </div>
+
 
 {% endblock %}

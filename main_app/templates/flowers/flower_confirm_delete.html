@@ -2,17 +2,17 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Are you sure you want to delete {{ object.name }}?</title>
+<title>Are you sure you want to delete {{ object.name.capitalize }}?</title>
 {% endblock %}
 
 
 {% block content %}
-<h1>Are you sure you want to delete {{ object.name }}?</h1>
+<h1>Are you sure you want to delete {{ object.name.capitalize }}?</h1>
 
 <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="Yes - Delete {{ object.name }}">
-    <a href="{% url 'flower_detail' object.id %}">Cancel</a>
+    <input type="submit" value="Delete {{ object.name.capitalize }}" class="button is-danger is-outlined is-rounded">
+    <a href="{% url 'flower_detail' object.id %}" class="button is-outlined is-rounded">Cancel</a>
 </form>
 
 {% endblock %}
