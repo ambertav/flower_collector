@@ -12,18 +12,18 @@
 
 {% block content %}
     {% if object %}
-        <h1>Update {{ object.name }}</h1>
+        <h2>Update {{ object.name }}</h2>
     {% else %}
-        <h1>Create a Pollinator</h1>
+        <h2>Create a Pollinator</h2>
     {% endif %}
 
-    <div class="container">
+    <div class="container form-medium">
         <form class="is-horizontal" method="POST">
             {% csrf_token %}
         <table class="mb-4">
             {{ form|bulma }}
         </table>
-        <input type="submit" value="Submit" class="button is-success is-outlined is-rounded column is-offset-9 mb-4">
+        <input type="submit" value="Submit" class="button is-success is-outlined is-rounded">
     </form>
 </div>
 

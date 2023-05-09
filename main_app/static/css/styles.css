@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+img {
+    width: 200px;
+    height: 150px;
+}
+
+td, th {
+    padding: 10px;
+}
+
+footer {
+    padding: 1rem 1.5rem 1rem;
+}
+
+.form-small {
+    width: 30%;
+}
+
+.form-medium {
+    width: 60%;
+}

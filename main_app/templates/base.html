@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block title %}
         <title>Flower Collector</title>
     {% endblock %}
@@ -37,11 +37,11 @@
         {% endblock %}
     </main>
     <footer class="footer pb-6">
-        <div class="content has-text-centered">
+        <div class="has-text-centered">
             <span>Copyright &copy; All Rights Reserved</span>
+            <br>
             <span>Flower Collector {% now 'Y' %} </span>
         </div>
-
     </footer>
 </body>
 </html>
