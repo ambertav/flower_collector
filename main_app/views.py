@@ -9,6 +9,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Flower, Pollinator
 from .forms import WateringForm
 
+import uuid
+import boto3
+
+S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
+BUCKET = 'django-flowercollector'
+
 # Create your views here.
 
 # view functions
@@ -44,11 +50,13 @@ def assoc_flower (request, pollinator_id, flower_id) :
         pollinator.flowers.add(flower_id)
         return redirect('pollinator_detail', pollinator_id=pollinator_id)
 
-
 def unassoc_flower (request, pollinator_id, flower_id) :
     pollinator = Pollinator.objects.get(id=pollinator_id)
     pollinator.flowers.remove(flower_id)
     return redirect('pollinator_detail', pollinator_id=pollinator_id)
+
+def add_photo (request, flower_id) :
+    pass
 
 # CBV for Flower
 class FlowerList (LoginRequiredMixin, ListView) :
