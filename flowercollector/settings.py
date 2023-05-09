@@ -34,7 +34,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['flowercollector.herokuapp.com/']
+ALLOWED_HOSTS = ['flowercollector.herokuapp.com']
 
 
 # Application definition
@@ -132,7 +132,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = 'static/'
+
 
 LOGIN_REDIRECT_URL = '/flowers/'
 LOGOUT_REDIRECT_URL = '/'
