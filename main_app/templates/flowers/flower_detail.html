@@ -11,6 +11,14 @@
             <br>
             <a href="{% url 'flower_delete' flower.id %}">Delete</a>
         </div>
+        <div>
+            {% for photo in flower.photo_set.all %}
+                <img src="{{ photo.url }}" alt="{{ flower.name }}">
+            {% empty %}
+                <span>No Photos Uploaded</span>
+            {% endfor %}
+        </div>
+
         <br>
         <br>
         <div>
