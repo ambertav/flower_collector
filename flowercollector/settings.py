@@ -34,7 +34,7 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['flowercollector.herokuapp.com/']
 
 
 # Application definition
@@ -87,10 +87,15 @@ WSGI_APPLICATION = 'flowercollector.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'flowercollector',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['NAME'],
+        'USER': os.environ['USER'],
+        'PASSWORD': os.environ['PASSWORD'],
+        'HOST': 'db.bit.io',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
