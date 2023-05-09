@@ -38,3 +38,8 @@ footer {
 .form-medium {
     width: 60%;
 }
+
+.navbar-brand {
+    background-color: #fafafa;
+    padding: 1rem 1.5rem 1rem;
+}
