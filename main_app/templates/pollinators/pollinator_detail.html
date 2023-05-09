@@ -7,15 +7,15 @@
 
 {% block content %}
     <div>
-        <h3>name: {{ pollinator.name.capitalize }}</h3>
+        <h2>{{ pollinator.name.capitalize }}</h2>
         <p>{{ pollinator.description }}</p>
         <p>{{ pollinator.get_type_display }}</p>
-        <a href="{% url 'pollinator_update' pollinator.id %}">Update</a>
-        <a href="{% url 'pollinator_delete' pollinator.id %}">Delete</a>
+        <a href="{% url 'pollinator_update' pollinator.id %}" class="button is-small is-warning is-light">Update</a>
+        <a href="{% url 'pollinator_delete' pollinator.id %}" class="button is-small is-danger is-light">Delete</a>
     </div>
 
     <div>
-        <h3>Flower's Pollinated:</h3>
+        <h3>Flowers Pollinated:</h3>
         {% if pollinator.flowers.count %}
             {% for flower in pollinator.flowers.all %}
                 <div>
@@ -24,7 +24,7 @@
                     </a>
                     <form action="{% url 'unassoc_flower' pollinator.id flower.id %}" method="POST">
                         {% csrf_token %}
-                        <input type="submit" value="Remove">
+                        <input type="submit" value="Remove" class="button is-small is-danger is-light">
                     </form>
                 </div>
             {% endfor %}
@@ -33,7 +33,7 @@
         {% endif %}
     </div>
     <div>
-        <h3>Available Flowers</h3>
+        <h3>Flowers Available to Pollinate:</h3>
         {% if flowers.count %}
             {% for flower in flowers %}
                 {% if flower.stage == 'P' %}
@@ -43,7 +43,7 @@
                         </a>
                         <form action="{% url 'assoc_flower' pollinator.id flower.id %}" method="POST">
                             {% csrf_token %}
-                            <input type="submit" value="Add">
+                            <input type="submit" value="Add" class="button is-small is-success is-light">
                         </form>
                     </div>
                 {% endif %}
