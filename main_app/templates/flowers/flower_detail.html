@@ -18,6 +18,11 @@
                 <span>No Photos Uploaded</span>
             {% endfor %}
         </div>
+        <form action="{% url 'add_photo' flower.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <input type="submit" value="Upload Photo">
+        </form>
 
         <br>
         <br>
