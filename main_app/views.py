@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from .models import Flower, Pollinator
+from .models import Flower, Pollinator, Photo
 from .forms import WateringForm
 
 import uuid
@@ -56,7 +56,25 @@ def unassoc_flower (request, pollinator_id, flower_id) :
     return redirect('pollinator_detail', pollinator_id=pollinator_id)
 
 def add_photo (request, flower_id) :
-    pass
+    # collect photo submission from request
+    photo_file = request.FILES.get('photo-file', None) # specifies to return None if photo-file is not present
+    if photo_file :
+        # s3 client object
+        s3 = boto3.client('s3')
+        # unique name/key for photo file
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+            # replaces photo file name with hex code, while maintaining .png, .jpeg, etc.
+        try :
+            # try to upload to aws s3
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # generate unique url for image
+            url = f'{S3_BASE_URL}{BUCKET}/{key}'
+            # save url as new instance of photo model, associate flower
+            Photo.objects.create(url=url, flower_id=flower_id)
+        except Exception as error :
+            print('photo upload failed')
+            print(error)
+    return redirect('flower_detail', pk=flower_id)
 
 # CBV for Flower
 class FlowerList (LoginRequiredMixin, ListView) :

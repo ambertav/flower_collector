@@ -9,6 +9,7 @@ urlpatterns = [
     path('flowers/<int:pk>/update/', views.FlowerUpdate.as_view(), name='flower_update'),
     path('flowers/<int:pk>/delete/', views.FlowerDelete.as_view(), name='flower_delete'),
     path('flowers/<int:flower_id>/add_watering', views.add_watering, name='add_watering'),
+    path('flowers/<int:flower_id>/add_photo', views.add_photo, name='add_photo'),
 
     path('accounts/signup/', views.signup, name='signup'),
 
