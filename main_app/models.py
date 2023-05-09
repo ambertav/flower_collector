@@ -63,3 +63,11 @@ class Watering (models.Model) :
     
     class Meta :
         ordering = '-date',
+
+
+class Photo (models.Model) :
+    url = models.CharField(max_length=250)
+    flower = models.ForeignKey(Flower, on_delete=models.CASCADE)
+
+    def __str__ (self) :
+        return f'Photo for flower_id: {self.flower_id} @{self.url}'
