@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': os.environ['NAME'],
         'USER': os.environ['USER'],
         'PASSWORD': os.environ['PASSWORD'],
-        'HOST': 'db.bit.io',
+        'HOST': 'ep-hidden-king-145531.us-east-2.aws.neon.tech',
         'PORT': '5432',
     }
 }
