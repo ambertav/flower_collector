@@ -89,14 +89,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ['NAME'],
-        'USER': 'taveras.amber',
+        'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['PASSWORD'],
         'HOST': 'ep-hidden-king-145531.us-east-2.aws.neon.tech',
         'PORT': '5432',
         'OPTIONS': {'sslmode': 'require'}
     }
 }
-
 
 
 # Password validation

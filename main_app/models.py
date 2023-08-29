@@ -49,7 +49,7 @@ class Pollinator (models.Model) :
         return self.name
     
     def get_absolute_url (self) :
-        return reverse('pollinator_detail', kwargs = {'pk': self.id})
+        return reverse('pollinator_detail', kwargs = {'pollinator_id': self.id})
     
 
 class Watering (models.Model) :
