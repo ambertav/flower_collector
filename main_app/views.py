@@ -9,11 +9,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Flower, Pollinator, Photo
 from .forms import WateringForm
 
+
+import os
 import uuid
 import boto3
 
-S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
-BUCKET = 'django-flowercollector'
 
 # Create your views here.
 
@@ -62,13 +62,13 @@ def add_photo (request, flower_id) :
         # s3 client object
         s3 = boto3.client('s3')
         # unique name/key for photo file
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:10] + photo_file.name[photo_file.name.rfind('.'):]
             # replaces photo file name with hex code, while maintaining .png, .jpeg, etc.
         try :
             # try to upload to aws s3
-            s3.upload_fileobj(photo_file, BUCKET, key)
+            s3.upload_fileobj(photo_file, os.environ['BUCKET'], key)
             # generate unique url for image
-            url = f'{S3_BASE_URL}{BUCKET}/{key}'
+            url = f'https://{os.environ["BUCKET"]}.s3.amazonaws.com/{key}'
             # save url as new instance of photo model, associate flower
             Photo.objects.create(url=url, flower_id=flower_id)
         except Exception as error :
